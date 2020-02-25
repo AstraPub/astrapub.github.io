@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://astrapub.github.io/2020/02/24/alg-04/</loc>
+    <loc>http://astrapub.github.io/2018/03/30/eth-test/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
-    <loc>http://astrapub.github.io/2020/02/24/alg-03/</loc>
+    <loc>http://astrapub.github.io/2018/05/18/eth-docker/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
-    <loc>http://astrapub.github.io/2020/02/24/alg-02/</loc>
+    <loc>http://astrapub.github.io/2020/01/14/alg-00/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
-    <loc>http://astrapub.github.io/2020/02/24/alg-00/</loc>
+    <loc>http://astrapub.github.io/2020/01/14/alg-01/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
-    <loc>http://astrapub.github.io/2020/02/24/alg-01/</loc>
+    <loc>http://astrapub.github.io/2020/01/14/alg-02/</loc>
     <lastmod>2020-02-25</lastmod>
   </url>  <url>
-    <loc>http://astrapub.github.io/2020/01/14/alg-order/</loc>
-    <lastmod>2020-01-17</lastmod>
+    <loc>http://astrapub.github.io/2020/01/14/alg-03/</loc>
+    <lastmod>2020-02-25</lastmod>
+  </url>  <url>
+    <loc>http://astrapub.github.io/2020/01/14/alg-04/</loc>
+    <lastmod>2020-02-25</lastmod>
+  </url>  <url>
+    <loc>http://astrapub.github.io/2020/01/14/alg-05/</loc>
+    <lastmod>2020-02-25</lastmod>
   </url>  <url>
     <loc>http://astrapub.github.io/2020/01/06/js-promise/</loc>
     <lastmod>2020-01-07</lastmod>
@@ -30,8 +36,5 @@
   </url>  <url>
     <loc>http://astrapub.github.io/2020/01/03/hexo-course/</loc>
     <lastmod>2020-01-04</lastmod>
-  </url>  <url>
-    <loc>http://astrapub.github.io/2020/01/02/plan/</loc>
-    <lastmod>2020-01-02</lastmod>
   </url>
 </urlset>

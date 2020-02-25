@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Docker 搭建以太坊私有链 | Hexo</title>
+  <meta name="description" content="Docker 搭建以太坊私有链首先需要安装 Docker，Docker 的安装和使用可以参看阮一峰老师的《Docker 入门教程》。Ethereum 官方是支持 docker 的，可以参看官方文档。 1.前期准备centOS  创建目录 ~&#x2F;works&#x2F;block-chain&#x2F;ethereum 在 ethereum 目录下编写 start-ethereum.sh 文件内容如下1234567dock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 搭建以太坊私有链">
+<meta property="og:url" content="http://astrapub.github.io/2018/05/18/eth-docker/index.html">
+<meta property="og:site_name" content="Astra">
+<meta property="og:description" content="Docker 搭建以太坊私有链首先需要安装 Docker，Docker 的安装和使用可以参看阮一峰老师的《Docker 入门教程》。Ethereum 官方是支持 docker 的，可以参看官方文档。 1.前期准备centOS  创建目录 ~&#x2F;works&#x2F;block-chain&#x2F;ethereum 在 ethereum 目录下编写 start-ethereum.sh 文件内容如下1234567dock">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-05-18T02:21:03.000Z">
+<meta property="article:modified_time" content="2020-02-25T12:20:25.332Z">
+<meta property="article:author" content="Astra">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="以太坊">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://astrapub.github.io/2018/05/18/eth-docker/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Astra" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/atove" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Astra</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web &amp; Node.js Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/atove" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%9E%E9%A1%BE/">回顾</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/" rel="tag">Promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ropsten/" rel="tag">Ropsten</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this/" rel="tag">this</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E9%A1%BE/" rel="tag">回顾</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" rel="tag">复杂度分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="tag">箭头函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/2019/" style="font-size: 13px;">2019</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 13px;">Hexo</a> <a href="/tags/Promise/" style="font-size: 13px;">Promise</a> <a href="/tags/Ropsten/" style="font-size: 13px;">Ropsten</a> <a href="/tags/js/" style="font-size: 13.5px;">js</a> <a href="/tags/this/" style="font-size: 13px;">this</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.5px;">以太坊</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.5px;">区块链</a> <a href="/tags/%E5%9B%9E%E9%A1%BE/" style="font-size: 13px;">回顾</a> <a href="/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" style="font-size: 13px;">复杂度分析</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 13px;">总结</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 13.5px;">排序</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.5px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 13.5px;">数组</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.5px;">栈</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" style="font-size: 13px;">箭头函数</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 13px;">递归</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 13.5px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 13.5px;">队列</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/alg-05/" class="title">05. 数据结构与算法入门 | 排序算法(下)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T14:49:05.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/alg-04/" class="title">04. 数据结构与算法入门 | 排序算法(上)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T14:49:04.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/alg-03/" class="title">03. 数据结构与算法入门 | 递归</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T14:49:03.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/alg-02/" class="title">02. 数据结构与算法入门 | 一篇文章讲清数组、链表、栈、队列</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T14:49:02.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/14/alg-01/" class="title">01. 数据结构与算法入门 | 什么是复杂度分析</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-14T14:49:01.000Z" itemprop="datePublished">2020-01-14</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-eth-docker" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker 搭建以太坊私有链
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/05/18/eth-docker/" class="article-date">
+	  <time datetime="2018-05-18T02:21:03.000Z" itemprop="datePublished">2018-05-18</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Docker/" rel="tag">Docker</a>, <a class="article-tag-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a>, <a class="article-tag-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/05/18/eth-docker/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 969(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Docker-搭建以太坊私有链"><a href="#Docker-搭建以太坊私有链" class="headerlink" title="Docker 搭建以太坊私有链"></a>Docker 搭建以太坊私有链</h1><p>首先需要安装 Docker，Docker 的安装和使用可以参看阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener">《Docker 入门教程》</a>。<br>Ethereum 官方是支持 docker 的，可以参看<a href="https://github.com/ethereum/go-ethereum" target="_blank" rel="noopener">官方文档</a>。</p>
+<h2 id="1-前期准备"><a href="#1-前期准备" class="headerlink" title="1.前期准备"></a>1.前期准备</h2><p><strong>centOS</strong></p>
+<ol>
+<li>创建目录 ~/works/block-chain/ethereum</li>
+<li>在 ethereum 目录下编写 start-ethereum.sh 文件内容如下<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker stop ethereum-node</span><br><span class="line">docker rm ethereum-node</span><br><span class="line"></span><br><span class="line">docker run -d --name ethereum-node -v /home/linshan/works/block-chain/ethereum:/root \</span><br><span class="line">           -p 8545:8545 -p 30303:30303 -p 8200:8200\</span><br><span class="line">           ethereum/client-go</span><br><span class="line">docker <span class="built_in">exec</span> -it ethereum-node /bin/sh</span><br></pre></td></tr></table></figure>
+其中 -v /home/linshan/works/block-chain/ethereum:/root 是把我们当前的 ethereum 目录，挂到了docker 的 /root 下。<br>在 Windows 环境下使用  -v /home/linshan/works/block-chain/ethereum:/root  不能启动容器，原因不明，所以在 Windows 下先不要使用目录挂载。</li>
+<li>接下来创建创世区块<br>在 ethereum 目录下编写 genesis.json 文件内容如下<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"config"</span>: &#123;</span><br><span class="line">                <span class="attr">"chainId"</span>: <span class="number">622</span> ,</span><br><span class="line">                <span class="attr">"homesteadBlock"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"eip155Block"</span>: <span class="number">0</span>,</span><br><span class="line">                <span class="attr">"eip158Block"</span>: <span class="number">0</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"coinbase"</span> : <span class="string">"0x0000000000000000000000000000000000000000"</span>,</span><br><span class="line">        <span class="attr">"difficulty"</span> : <span class="string">"200"</span>,</span><br><span class="line">        <span class="attr">"extraData"</span> : <span class="string">""</span>,</span><br><span class="line">        <span class="attr">"gasLimit"</span> : <span class="string">"0xffffffff"</span>,</span><br><span class="line">        <span class="attr">"nonce"</span> : <span class="string">"0x0000000000000042"</span>,</span><br><span class="line">        <span class="attr">"mixhash"</span> : <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">        <span class="attr">"parentHash"</span> : <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">        <span class="attr">"timestamp"</span> : <span class="string">"0x00"</span>,</span><br><span class="line">        <span class="attr">"alloc"</span>: &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+各字段具体用途参看<a href="https://github.com/ethereum/go-ethereum" target="_blank" rel="noopener">官方文档</a>。</li>
+</ol>
+<p><strong>Windows</strong><br>Windows 不必创建 start-ethereum.sh 文件， genesis.json 也可以在 Docker 容器启动后创建。</p>
+<h2 id="2-启动以太坊-Docker-容器"><a href="#2-启动以太坊-Docker-容器" class="headerlink" title="2.启动以太坊 Docker 容器"></a>2.启动以太坊 Docker 容器</h2><p><strong>centOS</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./start-ethereum.sh</span><br><span class="line">Error response from daemon: No such container: ethereum-node</span><br><span class="line">5ef5cf1eebe96a0b6f8bc777dc69442d302aed1b086c723fb11360459347cf15</span><br><span class="line">/ <span class="comment">#</span></span><br><span class="line">/ <span class="comment"># ls</span></span><br><span class="line">bin    dev    etc    home   lib    media  mnt    proc   root   run    sbin   srv    sys    tmp    usr    var</span><br><span class="line">/ <span class="comment"># cd /root/</span></span><br><span class="line">~ <span class="comment"># ls</span></span><br><span class="line">genesis.json</span><br></pre></td></tr></table></figure>
+<p><strong>Windows</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name ethereum-node -p 8545:8545 -p 30303:30303 -p 8200:8200 ethereum&#x2F;client-go</span><br></pre></td></tr></table></figure>
+<p>运行成功后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it ethereum-node &#x2F;bin&#x2F;sh</span><br></pre></td></tr></table></figure>
+<p>进入 docker 容器命令行<br>因为 Windows 没有挂载共享目录，所以 root 目录下没有 genesis.json 文件，我们要在这里手动创建 genesis.json 文件，内容要和 centOS 的一致。</p>
+<h2 id="3-初始化-geth"><a href="#3-初始化-geth" class="headerlink" title="3.初始化 geth"></a>3.初始化 geth</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ <span class="comment"># geth --datadir ./data init ./genesis.json</span></span><br></pre></td></tr></table></figure>
+<p>data 用来存放区块数据</p>
+<h2 id="4-启动私有链"><a href="#4-启动私有链" class="headerlink" title="4.启动私有链"></a>4.启动私有链</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~ <span class="comment"># geth --datadir ./data --networkid 622 --port 8200 --rpc  --rpcaddr 0.0.0.0  --rpccorsdomain "*" --rpcport 8545 --nodiscover console</span></span><br></pre></td></tr></table></figure>
+<p>geth 的参数参看<a href="https://www.cnblogs.com/tinyxiong/p/7918706.html" target="_blank" rel="noopener">以太坊客户端Geth命令用法-参数详解 </a></p>
+<h2 id="5-连接节点"><a href="#5-连接节点" class="headerlink" title="5.连接节点"></a>5.连接节点</h2><p>启动私有节点后进入 geth 命令行执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; admin.nodeInfo.enode</span><br><span class="line">&quot;enode:&#x2F;&#x2F;a1ae9aef2b0575875fc366cf9057e6fe7182068c2f6570859315400b32b7b341bd90e1b65fd59291800f4d6196640420fba52f79ceaff793a3cff51b49281634@[::]:8200?discport&#x3D;0&quot;</span><br></pre></td></tr></table></figure>
+<p>输出的内容就是节点信息，我们在手动连接节点是会用到，注意要把“0.0.0.0“换成你自己的IP，然后将这个信息发送给其他节点。手动连接节点有两种方式：  </p>
+<ol>
+<li>在节点启动时连接：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">geth --datadir .&#x2F;data --networkid 622  --ipcdisable --port 8200 --rpc  --rpcaddr 0.0.0.0  --rpccorsdomain &quot;*&quot; --rpcport 8545 --bootnodes &quot;enode:&#x2F;&#x2F;a1ae9aef2b0575875fc366cf9057e6fe7182068c2f6570859315400b32b7b341bd90e1b65fd59291800f4d6196640420fba52f79ceaff793a3cff51b49281634@[::]:8200&quot; --nodiscover console</span><br></pre></td></tr></table></figure></li>
+<li>使用 admin.addPeer 连接<br>如果节点已经启动可以使用该方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin.addPeer(&quot;enode:&#x2F;&#x2F;a1ae9aef2b0575875fc366cf9057e6fe7182068c2f6570859315400b32b7b341bd90e1b65fd59291800f4d6196640420fba52f79ceaff793a3cff51b49281634@[::]:8200&quot;)</span><br></pre></td></tr></table></figure>
+当然不管使用哪种方法连接节点都要保证创世区块文件 genesis.json 一致，还有在启动时 networkid 也要一致。</li>
+</ol>
+<p>至此以太坊私有链已搭建完毕。</p>
+<h2 id="6-geth-docker-常用命令"><a href="#6-geth-docker-常用命令" class="headerlink" title="6.geth docker 常用命令"></a>6.geth docker 常用命令</h2><p><strong>geth命令</strong>  </p>
+<ul>
+<li><p>geth –rpc  –rpcaddr 0.0.0.0  –rpccorsdomain “*”  –datadir ./data  –networkid 622  console 启动节点（<a href="https://www.cnblogs.com/tinyxiong/p/7918706.html）" target="_blank" rel="noopener">https://www.cnblogs.com/tinyxiong/p/7918706.html）</a></p>
+</li>
+<li><p>geth  –datadir “~/ethdev” –dev   以开发方式启动geth （<a href="https://blog.csdn.net/CHENYUFENG1991/article/details/53458175?locationNum=7&amp;fps=1）" target="_blank" rel="noopener">https://blog.csdn.net/CHENYUFENG1991/article/details/53458175?locationNum=7&amp;fps=1）</a></p>
+</li>
+<li><p>geth –dev console 2&gt;&gt;file_to_log_output   进入geth控制台</p>
+</li>
+<li><p>personal.newAccount() 创建账户</p>
+</li>
+<li><p>eth.accounts 查看账户</p>
+</li>
+<li><p>eth.getBalance(eth.accounts[0]) 查看账户余额</p>
+</li>
+<li><p>miner.setEtherbase(eth.accounts[0]) 设置挖矿地址</p>
+</li>
+<li><p>miner.start() 启动挖矿</p>
+</li>
+<li><p>miner.stop() 停止挖矿</p>
+</li>
+<li><p>admin.nodeInfo 节点信息</p>
+</li>
+<li><p>eth.blockNumber 查看区块数</p>
+</li>
+<li><p>exit 退出geth控制台</p>
+</li>
+<li><p>personal.unlockAccount(acc0) 解锁账号</p>
+</li>
+<li><p>eth.sendTransaction({from:acc0,to:acc1,value:web3.toWei(20,”ether”)}) 转账</p>
+</li>
+</ul>
+<p><strong>docker命令</strong></p>
+<ul>
+<li><p>exit 交互型容器退出（<a href="https://blog.csdn.net/u010246789/article/details/53958662）" target="_blank" rel="noopener">https://blog.csdn.net/u010246789/article/details/53958662）</a></p>
+</li>
+<li><p>docker create 创建容器</p>
+</li>
+<li><p>docker start 启动容器</p>
+</li>
+<li><p>docker ps 查看当前运行的容器</p>
+</li>
+<li><p>docker ps -a 查看所有容器，包括停止的。</p>
+</li>
+<li><p>docker stop [NAME]/[CONTAINER ID] 将容器退出。</p>
+</li>
+<li><p>docker kill [NAME]/[CONTAINER ID] 强制停止一个容器。</p>
+</li>
+<li><p>docker rm [NAME]/[CONTAINER ID] 删除容器，不能够删除一个正在运行的容器，会报错。需要先停止容器。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://astrapub.github.io/2018/05/18/eth-docker/" title="Docker 搭建以太坊私有链" target="_blank" rel="external">http://astrapub.github.io/2018/05/18/eth-docker/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/atove" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/atove" target="_blank"><span class="text-dark">Astra</span><small class="ml-1x">Web &amp; Node.js Developer</small></a></h3>
+        <div>致力于 web 前端、node、webGL 开发；对新技术和未知事物有探索精神，轻微代码洁癖；懂设计，懂产品，努力学习...</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/01/03/hexo-course/" title="Hexo 使用教程"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/03/30/eth-test/" title="接入以太坊（Ethereum）测试网络"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/atove" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '645d2ff96147e54e5b8f',
+    clientSecret: 'b962cc3b53a4661cc6072ae90e828688b5fff8c3',
+    repo: 'astrapub.github.io',
+    owner: 'AstraPub',
+    admin: ['atove'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+</body>
+</html>
