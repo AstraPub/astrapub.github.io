@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>10. 数据结构与算法入门 | 散列表 | Hexo</title>
+  <meta name="description" content="散列表的由来 散列表来源于数组，它借助散列函数对数组这种数据结构进行扩展，利用的是数组支持按照下标随机访问元素的特性。 需要存储在散列表中的数据我们称为键，将键转化为数组下标的方法称为散列函数，散列函数的计算结果称为散列值。 将数据存储在散列值对应的数组下标位置。  如何设计散列函数？总结3点设计散列函数的基本要求  散列函数计算得到的散列值是一个非负整数。 若key1&#x3D;key2，则hash(ke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10. 数据结构与算法入门 | 散列表">
+<meta property="og:url" content="http://astrapub.github.io/2020/01/15/alg-10/index.html">
+<meta property="og:site_name" content="Astra">
+<meta property="og:description" content="散列表的由来 散列表来源于数组，它借助散列函数对数组这种数据结构进行扩展，利用的是数组支持按照下标随机访问元素的特性。 需要存储在散列表中的数据我们称为键，将键转化为数组下标的方法称为散列函数，散列函数的计算结果称为散列值。 将数据存储在散列值对应的数组下标位置。  如何设计散列函数？总结3点设计散列函数的基本要求  散列函数计算得到的散列值是一个非负整数。 若key1&#x3D;key2，则hash(ke">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-15T12:32:09.000Z">
+<meta property="article:modified_time" content="2020-02-25T13:26:31.576Z">
+<meta property="article:author" content="Astra">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="散列表">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://astrapub.github.io/2020/01/15/alg-10/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Astra" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.css">
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/atove" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Astra</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web &amp; Node.js Developer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/atove" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%9E%E9%A1%BE/">回顾</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/2019/" rel="tag">2019</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/" rel="tag">Promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ropsten/" rel="tag">Ropsten</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this/" rel="tag">this</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" rel="tag">以太坊</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" rel="tag">区块链</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9E%E9%A1%BE/" rel="tag">回顾</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" rel="tag">复杂度分析</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" rel="tag">散列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="tag">箭头函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%B3%E8%A1%A8/" rel="tag">跳表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%92%E5%BD%92/" rel="tag">递归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%98%9F%E5%88%97/" rel="tag">队列</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/2019/" style="font-size: 13px;">2019</a> <a href="/tags/Docker/" style="font-size: 13px;">Docker</a> <a href="/tags/Hexo/" style="font-size: 13px;">Hexo</a> <a href="/tags/Promise/" style="font-size: 13px;">Promise</a> <a href="/tags/Ropsten/" style="font-size: 13px;">Ropsten</a> <a href="/tags/js/" style="font-size: 13.33px;">js</a> <a href="/tags/this/" style="font-size: 13px;">this</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 13px;">二分查找</a> <a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" style="font-size: 13.33px;">以太坊</a> <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" style="font-size: 13.33px;">区块链</a> <a href="/tags/%E5%9B%9E%E9%A1%BE/" style="font-size: 13px;">回顾</a> <a href="/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" style="font-size: 13px;">复杂度分析</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 13px;">总结</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 13.67px;">排序</a> <a href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" style="font-size: 13px;">散列表</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 13.33px;">数据结构</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 13.33px;">数组</a> <a href="/tags/%E6%A0%88/" style="font-size: 13.33px;">栈</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a> <a href="/tags/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" style="font-size: 13px;">箭头函数</a> <a href="/tags/%E8%B7%B3%E8%A1%A8/" style="font-size: 13px;">跳表</a> <a href="/tags/%E9%80%92%E5%BD%92/" style="font-size: 13px;">递归</a> <a href="/tags/%E9%93%BE%E8%A1%A8/" style="font-size: 13.33px;">链表</a> <a href="/tags/%E9%98%9F%E5%88%97/" style="font-size: 13.33px;">队列</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/15/alg-10/" class="title">10. 数据结构与算法入门 | 散列表</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-15T12:32:09.000Z" itemprop="datePublished">2020-01-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/15/alg-09/" class="title">09. 数据结构与算法入门 | 跳表</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-15T12:32:09.000Z" itemprop="datePublished">2020-01-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/15/alg-08/" class="title">08. 数据结构与算法入门 | 二分查找</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-15T12:32:08.000Z" itemprop="datePublished">2020-01-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/15/alg-07/" class="title">07. 数据结构与算法入门 | 如何实现通用、高性能的排序函数？</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-15T12:31:20.000Z" itemprop="datePublished">2020-01-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/15/alg-06/" class="title">06. 数据结构与算法入门 | 线性排序</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-15T12:31:19.000Z" itemprop="datePublished">2020-01-15</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-alg-10" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      10. 数据结构与算法入门 | 散列表
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/15/alg-10/" class="article-date">
+	  <time datetime="2020-01-15T12:32:09.000Z" itemprop="datePublished">2020-01-15</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/%E6%95%A3%E5%88%97%E8%A1%A8/" rel="tag">散列表</a>, <a class="article-tag-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/15/alg-10/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="散列表的由来"><a href="#散列表的由来" class="headerlink" title="散列表的由来"></a>散列表的由来</h3><ol>
+<li>散列表来源于数组，它借助散列函数对数组这种数据结构进行扩展，利用的是数组支持按照下标随机访问元素的特性。</li>
+<li>需要存储在散列表中的数据我们称为键，将键转化为数组下标的方法称为散列函数，散列函数的计算结果称为散列值。</li>
+<li>将数据存储在散列值对应的数组下标位置。</li>
+</ol>
+<h3 id="如何设计散列函数？"><a href="#如何设计散列函数？" class="headerlink" title="如何设计散列函数？"></a>如何设计散列函数？</h3><p>总结3点设计散列函数的基本要求</p>
+<ol>
+<li>散列函数计算得到的散列值是一个非负整数。</li>
+<li>若key1=key2，则hash(key1)=hash(key2)</li>
+<li>若key≠key2，则hash(key1)≠hash(key2)<br>正是由于第3点要求，所以产生了几乎无法避免的散列冲突问题。</li>
+</ol>
+<h3 id="散列冲突的解放方法？"><a href="#散列冲突的解放方法？" class="headerlink" title="散列冲突的解放方法？"></a>散列冲突的解放方法？</h3><ol>
+<li><p>常用的散列冲突解决方法有2类：开放寻址法（open addressing）和链表法（chaining）</p>
+</li>
+<li><p>开放寻址法</p>
+<p>①核心思想：如果出现散列冲突，就重新探测一个空闲位置，将其插入。</p>
+<p>②线性探测法（Linear Probing）：</p>
+<p><strong>插入数据</strong>：当我们往散列表中插入数据时，如果某个数据经过散列函数之后，存储的位置已经被占用了，我们就从当前位置开始，依次往后查找，看是否有空闲位置，直到找到为止。</p>
+<p><strong>查找数据</strong>：我们通过散列函数求出要查找元素的键值对应的散列值，然后比较数组中下标为散列值的元素和要查找的元素是否相等，若相等，则说明就是我们要查找的元素；否则，就顺序往后依次查找。如果遍历到数组的空闲位置还未找到，就说明要查找的元素并没有在散列表中。</p>
+<p><strong>删除数据</strong>：为了不让查找算法失效，可以将删除的元素特殊标记为deleted，当线性探测查找的时候，遇到标记为deleted的空间，并不是停下来，而是继续往下探测。</p>
+<p><strong>结论</strong>：最坏时间复杂度为O(n)</p>
+<p>③二次探测（Quadratic probing）：线性探测每次探测的步长为1，即在数组中一个一个探测，而二次探测的步长变为原来的平方。</p>
+<p>④双重散列（Double hashing）：使用一组散列函数，直到找到空闲位置为止。</p>
+<p>⑤线性探测法的性能描述：</p>
+<p>用“装载因子”来表示空位多少，公式：散列表装载因子=填入表中的个数/散列表的长度。<br>装载因子越大，说明空闲位置越少，冲突越多，散列表的性能会下降。</p>
+</li>
+</ol>
+<ol start="3">
+<li><p>链表法（更常用）</p>
+<p><strong>插入数据</strong>：当插入的时候，我们需要通过散列函数计算出对应的散列槽位，将其插入到对应的链表中即可，所以插入的时间复杂度为O(1)。</p>
+<p><strong>查找或删除数据</strong>：当查找、删除一个元素时，通过散列函数计算对应的槽，然后遍历链表查找或删除。对于散列比较均匀的散列函数，链表的节点个数k=n/m，其中n表示散列表中数据的个数，m表示散列表中槽的个数，所以是时间复杂度为O(k)。</p>
+</li>
+</ol>
+<h2 id="如何设计一个工业级的散列函数？"><a href="#如何设计一个工业级的散列函数？" class="headerlink" title="如何设计一个工业级的散列函数？"></a>如何设计一个工业级的散列函数？</h2><p><strong>思路</strong>：</p>
+<p>何为一个工业级的散列表？工业级的散列表应该具有哪些特性？结合学过的知识，我觉的应该有这样的要求：</p>
+<ol>
+<li>支持快速的查询、插入、删除操作；</li>
+<li>内存占用合理，不能浪费过多空间；</li>
+<li>性能稳定，在极端情况下，散列表的性能也不会退化到无法接受的情况。</li>
+</ol>
+<p><strong>方案</strong>：</p>
+<p>如何设计这样一个散列表呢？根据前面讲到的知识，我会从3个方面来考虑设计思路：</p>
+<ol>
+<li>设计一个合适的散列函数；</li>
+<li>定义装载因子阈值，并且设计动态扩容策略；</li>
+<li>选择合适的散列冲突解决方法。</li>
+</ol>
+<h3 id="如何设计散列函数？-1"><a href="#如何设计散列函数？-1" class="headerlink" title="如何设计散列函数？"></a>如何设计散列函数？</h3><ol>
+<li>要尽可能让散列后的值随机且均匀分布，这样会尽可能减少散列冲突，即便冲突之后，分配到每个槽内的数据也比较均匀。</li>
+<li>除此之外，散列函数的设计也不能太复杂，太复杂就会太耗时间，也会影响到散列表的性能。</li>
+<li>常见的散列函数设计方法：直接寻址法、平方取中法、折叠法、随机数法等。</li>
+</ol>
+<h3 id="如何根据装载因子动态扩容？"><a href="#如何根据装载因子动态扩容？" class="headerlink" title="如何根据装载因子动态扩容？"></a>如何根据装载因子动态扩容？</h3><ol>
+<li><p>如何设置装载因子阈值？</p>
+<p>① 可以通过设置装载因子的阈值来控制是扩容还是缩容，支持动态扩容的散列表，插入数据的时间复杂度使用摊还分析法。</p>
+<p>② 装载因子的阈值设置需要权衡时间复杂度和空间复杂度。如何权衡？如果内存空间不紧张，对执行效率要求很高，可以降低装载因子的阈值；相反，如果内存空间紧张，对执行效率要求又不高，可以增加装载因子的阈值。</p>
+</li>
+<li><p>如何避免低效扩容？分批扩容</p>
+<p>① 分批扩容的插入操作：当有新数据要插入时，我们将数据插入新的散列表，并且从老的散列表中拿出一个数据放入新散列表。每次插入都重复上面的过程。这样插入操作就变得很快了。</p>
+<p>② 分批扩容的查询操作：先查新散列表，再查老散列表。</p>
+<p>③ 通过分批扩容的方式，任何情况下，插入一个数据的时间复杂度都是O(1)。</p>
+</li>
+</ol>
+<h3 id="如何选择散列冲突解决方法？"><a href="#如何选择散列冲突解决方法？" class="headerlink" title="如何选择散列冲突解决方法？"></a>如何选择散列冲突解决方法？</h3><ol>
+<li>常见的两种方法：开放寻址法和链表法。</li>
+<li>大部分情况下，链表法更加普适。而且，我们还可以通过将链表法中的链表改造成其他动态查找数据结构，比如红黑树、跳表，来避免散列表时间复杂度退化成O(n)，抵御散列冲突攻击。</li>
+<li>但是，对于小规模数据、装载因子不高的散列表，比较适合用开放寻址法。</li>
+</ol>
+<h2 id="为什么散列表和链表经常放在一起使用？"><a href="#为什么散列表和链表经常放在一起使用？" class="headerlink" title="为什么散列表和链表经常放在一起使用？"></a>为什么散列表和链表经常放在一起使用？</h2><ol>
+<li>散列表的优点：支持高效的数据插入、删除和查找操作</li>
+<li>散列表的缺点：不支持快速顺序遍历散列表中的数据</li>
+<li>如何按照顺序快速遍历散列表的数据？只能将数据转移到数组，然后排序，最后再遍历数据。</li>
+<li>我们知道散列表是动态的数据结构，需要频繁的插入和删除数据，那么每次顺序遍历之前都需要先排序，这势必会造成效率非常低下。</li>
+<li>如何解决上面的问题呢？就是将散列表和链表（或跳表）结合起来使用。</li>
+</ol>
+<h3 id="散列表和链表如何组合起来使用"><a href="#散列表和链表如何组合起来使用" class="headerlink" title="散列表和链表如何组合起来使用"></a>散列表和链表如何组合起来使用</h3><ol>
+<li><p>LRU（Least Recently Used）缓存淘汰算法</p>
+<p>1.1. LRU缓存淘汰算法主要操作有哪些？主要包含3个操作：</p>
+<p>① 往缓存中添加一个数据；<br>② 从缓存中删除一个数据；<br>③ 在缓存中查找一个数据；<br>④ 总结：上面3个都涉及到查找。</p>
+<p>1.2. 如何用链表实现LRU缓存淘汰算法？</p>
+<p>① 需要维护一个按照访问时间从大到小的有序排列的链表结构。<br>② 缓冲空间有限，当空间不足需要淘汰一个数据时直接删除链表头部的节点。<br>③ 当要缓存某个数据时，先在链表中查找这个数据。若未找到，则直接将数据放到链表的尾部。若找到，就把它移动到链表尾部。<br>④ 前面说了，LRU缓存的3个主要操作都涉及到查找，若单纯由链表实现，查找的时间复杂度很高为O(n)。若将链表和散列表结合使用，查找的时间复杂度会降低到O(1)。</p>
+<p>1.3. 如何使用散列表和链表实现LRU缓存淘汰算法？</p>
+<p>① 使用双向链表存储数据，链表中每个节点存储数据（data）、前驱指针（prev）、后继指针（next）和hnext指针（解决散列冲突的链表指针）。<br>② 散列表通过链表法解决散列冲突，所以每个节点都会在两条链中。一条链是双向链表，另一条链是散列表中的拉链。前驱和后继指针是为了将节点串在双向链表中，hnext指针是为了将节点串在散列表的拉链中。<br>③ LRU缓存淘汰算法的3个主要操作如何做到时间复杂度为O(1)呢？<br>首先，我们明确一点就是链表本身插入和删除一个节点的时间复杂度为O(1)，因为只需更改几个指针指向即可。</p>
+</li>
+</ol>
+<p>接着，来分析查找操作的时间复杂度。当要查找一个数据时，通过散列表可实现在O(1)时间复杂度找到该数据，再加上前面说的插入或删除的时间复杂度是O(1)，所以我们总操作的时间复杂度就是O(1)。</p>
+<ol start="2">
+<li><p>Redis有序集合</p>
+<p>2.1.什么是有序集合？</p>
+<p>① 在有序集合中，每个成员对象有2个重要的属性，即key（键值）和score（分值）。<br>② 不仅会通过score来查找数据，还会通过key来查找数据。</p>
+<p>2.2. 有序集合的操作有哪些？</p>
+<p>举个例子，比如用户积分排行榜有这样一个功能：可以通过用户ID来查找积分信息，也可以通过积分区间来查找用户ID。这里用户ID就是key，积分就是score。所以，有序集合的操作如下：</p>
+<p>① 添加一个对象；<br>② 根据键值删除一个对象；<br>③ 根据键值查找一个成员对象；<br>④ 根据分值区间查找数据，比如查找积分在[100.356]之间的成员对象；<br>⑤ 按照分值从小到大排序成员变量。</p>
+<p>这时可以按照分值将成员对象组织成跳表结构，按照键值构建一个散列表。那么上面的所有操作都非常高效。</p>
+</li>
+<li><p>Java LinkedHashMap<br>和LRU缓存淘汰策略实现一模一样。支持按照插入顺序遍历数据，也支持按照访问顺序遍历数据。</p>
+</li>
+</ol>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ol>
+<li><p>Word文档中单词拼写检查功能是如何实现的？<br> <strong>答</strong>：<br>字符串占用内存大小为8字节，20万单词占用内存大小不超过20MB，所以用散列表存储20万英文词典单词，然后对每个编辑进文档的单词进行查找，若未找到，则提示拼写错误。</p>
+</li>
+<li><p>假设我们有10万条URL访问日志，如何按照访问次数给URL排序？<br> <strong>答</strong>：<br>字符串占用内存大小为8字节，10万条URL访问日志占用内存不超过10MB，通过散列表统计url访问次数，然后用TreeMap存储散列表的元素值（作为key）和数组下标值（作为value）</p>
+</li>
+<li><p>有两个字符串数组，每个数组大约有10万条字符串，如何快速找出两个数组中相同的字符串？<br> <strong>答</strong>：<br>分别将2个数组的字符串通过散列函数映射到散列表，散列表中的元素值为次数。注意，先存储的数组中的相同元素值不进行次数累加。最后，统计散列表中元素值大于等于2的散列值对应的字符串就是两个数组中相同的字符串。</p>
+</li>
+<li><p>上面所讲的几个散列表和链表组合的例子里，我们都是使用双向链表。如果把双向链表改成单链表，还能否正常工作？为什么呢？</p>
+<p><strong>答</strong>：</p>
+<p>在删除一个元素时，虽然能 O(1) 的找到目标结点，但是要删除该结点需要拿到前一个结点的指针，遍历到前一个结点复杂度会变为 O(N），所以用双链表实现比较合适。</p>
+</li>
+<li><p>假设猎聘网有10万名猎头，每个猎头可以通过做任务（比如发布职位）来积累积分，然后通过积分来下载简历。假设你是猎聘网的一名工程师，如何在内存中存储这10万个猎头的ID和积分信息，让它能够支持这样几个操作：</p>
+<p>1）根据猎头ID查收查找、删除、更新这个猎头的积分信息；<br>2）查找积分在某个区间的猎头ID列表；<br>3）查找按照积分从小到大排名在第x位到第y位之间的猎头ID列表。</p>
+<p><strong>答</strong>：<br>以积分排序构建一个跳表，再以猎头 ID 构建一个散列表。<br>1）ID 在散列表中所以可以 O(1) 查找到这个猎头；<br>2）积分以跳表存储，跳表支持区间查询；<br>3）这点根据目前学习的知识暂时无法实现，老师文中也提到了。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://astrapub.github.io/2020/01/15/alg-10/" title="10. 数据结构与算法入门 | 散列表" target="_blank" rel="external">http://astrapub.github.io/2020/01/15/alg-10/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/atove" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/atove" target="_blank"><span class="text-dark">Astra</span><small class="ml-1x">Web &amp; Node.js Developer</small></a></h3>
+        <div>致力于 web 前端、node、webGL 开发；对新技术和未知事物有探索精神，轻微代码洁癖；懂设计，懂产品，努力学习...</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+           
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2020/01/15/alg-09/" title="09. 数据结构与算法入门 | 跳表"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/atove" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <script src="//cdn.jsdelivr.net/npm/gitalk@1.4.0/dist/gitalk.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '645d2ff96147e54e5b8f',
+    clientSecret: 'b962cc3b53a4661cc6072ae90e828688b5fff8c3',
+    repo: 'astrapub.github.io',
+    owner: 'AstraPub',
+    admin: ['atove'],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+  })
+  gitalk.render('comments')
+  </script>
+
+      
+
+
+
+
+
+
+
+</body>
+</html>
