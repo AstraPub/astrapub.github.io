@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://astrapub.github.io/"/>
-  <updated>2020-01-17T08:14:43.425Z</updated>
+  <updated>2020-02-25T02:58:29.109Z</updated>
   <id>http://astrapub.github.io/</id>
   
   <author>
@@ -15,6 +15,143 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>alg-04</title>
+    <link href="http://astrapub.github.io/2020/02/25/alg-04/"/>
+    <id>http://astrapub.github.io/2020/02/25/alg-04/</id>
+    <published>2020-02-25T02:58:29.000Z</published>
+    <updated>2020-02-25T02:58:29.109Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>00. 数据结构与算法入门 | 开篇，如何学习</title>
+    <link href="http://astrapub.github.io/2020/02/24/alg-00/"/>
+    <id>http://astrapub.github.io/2020/02/24/alg-00/</id>
+    <published>2020-02-24T14:49:57.000Z</published>
+    <updated>2020-02-25T04:03:11.486Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="什么是数据结构，什么是算法"><a href="#什么是数据结构，什么是算法" class="headerlink" title="什么是数据结构，什么是算法"></a>什么是数据结构，什么是算法</h3><p>大部分教材里开篇都会有相关的定义，但是这些定义都很抽象，而且对于我们理解没有什么实质性帮助，所以我们不必死扣定义。那么来讲讲我的理解，数据结构就是指一组数据的存储结构，算法就是操作数据的一组方法。</p><p>可以以图书馆为例，为了方便查找，图书管理员把图书会按照一定规律放到书架上，这就是书籍这种“数据”的存储结构，而怎么才能查到一本书的具体位置，方法有很多，可以一本一本的找，也可以将图书分类然后再查找，这个查找的方法就是算法。</p><p>所以，数据结构和算法是相辅相成的，<strong>数据结构是为算法服务的，算法要作用在特定的数据结构之上</strong>。</p><h3 id="学习数据结构与算法的重要性"><a href="#学习数据结构与算法的重要性" class="headerlink" title="学习数据结构与算法的重要性"></a>学习数据结构与算法的重要性</h3><ol><li>直接好处是能够有写出性能更优的代码。</li><li>算法，是一种解决问题的思路和方法，有机会应用到生活和事业的其他方面。</li><li>长期来看，大脑思考能力是个人最重要的核心竞争力，而算法是为数不多的能够有效训练大脑思考能力的途径之一。</li></ol><h3 id="知识体系"><a href="#知识体系" class="headerlink" title="知识体系"></a>知识体系</h3><p><img src="/.io//%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB.jpg" alt="数据结构与算法知识体系"></p><h3 id="学习技巧"><a href="#学习技巧" class="headerlink" title="学习技巧"></a>学习技巧</h3><p>数据结构与算法学习，其实是一个很枯燥的过程，很容易就坚持不下来，其实可以使用学习技巧来提升学习体验：</p><ol><li>边学边练，适度刷题；</li><li>多问、多思考、多互动，最好能和志同道合的朋友一起学习；</li><li>给自己设立一个切实可行的目标，就像打怪升级，坚持下来；</li><li>反复迭代、温故知新，不断沉淀。</li></ol><h3 id="学习的方法论"><a href="#学习的方法论" class="headerlink" title="学习的方法论"></a>学习的方法论</h3><p>首先我认为学习分两点，第一，知识点的学习，主要是记忆和理解，相对简单，有清晰的目标，有良好的正反馈，学会了就是会了，可以拿来炫耀。比如，我可以告诉你帆船是通过走之字型逆风航行的，相信你很容易就能明白并记住这个知识点，但是你就能因此学会了如何驾驶帆船么，并不能，那么久引出了下面的内容；第二，技能的学习，这就需要刻意练习，不断纠正自己的错误，标准不清晰也就不容易量化，不容易形成正反馈，也就容易放弃。最典型的就是学习英语，需要反复练习，编程亦然，需要练习。</p><p>所以我总结以下几点关于学习的方法，希望和大家一起交流：</p><ol><li>首先提高知识的广度，建立知识体系，再去拓展知识的深度；</li><li>制定切实可行的目标，一步一步来；</li><li>建立正反馈系统，可以跟牛人学，也可以和朋友一起学，对于错误能及时发现、及时纠正；</li><li>持续输出，可以写学习笔记、总结，也可以是代码和注释，如果能教会别人效果更佳；</li><li>坚持学习和健身，健身能够增加多巴胺的分泌，能使人身心愉悦，同时能提升延迟满足的能力，提高学习效率。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;什么是数据结构，什么是算法&quot;&gt;&lt;a href=&quot;#什么是数据结构，什么是算法&quot; class=&quot;headerlink&quot; title=&quot;什么是数据结构，什么是算法&quot;&gt;&lt;/a&gt;什么是数据结构，什么是算法&lt;/h3&gt;&lt;p&gt;大部分教材里开篇都会有相关的定义，但是这些定义都很抽
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://astrapub.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="数组" scheme="http://astrapub.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="链表" scheme="http://astrapub.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="栈" scheme="http://astrapub.github.io/tags/%E6%A0%88/"/>
+    
+      <category term="队列" scheme="http://astrapub.github.io/tags/%E9%98%9F%E5%88%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>03. 数据结构与算法入门 | 递归</title>
+    <link href="http://astrapub.github.io/2020/02/24/alg-03/"/>
+    <id>http://astrapub.github.io/2020/02/24/alg-03/</id>
+    <published>2020-02-24T14:49:56.000Z</published>
+    <updated>2020-02-25T02:17:27.603Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="递归" scheme="http://astrapub.github.io/tags/%E9%80%92%E5%BD%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>02. 数据结构与算法入门 | 一篇文章讲清数组、链表、栈、队列</title>
+    <link href="http://astrapub.github.io/2020/02/24/alg-02/"/>
+    <id>http://astrapub.github.io/2020/02/24/alg-02/</id>
+    <published>2020-02-24T14:49:56.000Z</published>
+    <updated>2020-02-25T02:11:40.735Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;数组&quot;&gt;&lt;a href=&quot;#数组&quot; class=&quot;headerlink&quot; title=&quot;数组&quot;&gt;&lt;/a&gt;数组&lt;/h2&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://astrapub.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="数组" scheme="http://astrapub.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="链表" scheme="http://astrapub.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="栈" scheme="http://astrapub.github.io/tags/%E6%A0%88/"/>
+    
+      <category term="队列" scheme="http://astrapub.github.io/tags/%E9%98%9F%E5%88%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>01. 数据结构与算法入门 | 什么是复杂度分析</title>
+    <link href="http://astrapub.github.io/2020/02/24/alg-01/"/>
+    <id>http://astrapub.github.io/2020/02/24/alg-01/</id>
+    <published>2020-02-24T14:49:56.000Z</published>
+    <updated>2020-02-25T02:11:40.731Z</updated>
+    
+    <content type="html"><![CDATA[<p>复杂度分析分为时间复杂度分析和空间复杂度分析，时间复杂度的全称是渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系，空间复杂度全称就是渐进空间复杂度（asymptotic space complexity），表示算法的存储空间与数据规模之间的增长关系。</p><h3 id="什么是复杂度分析？"><a href="#什么是复杂度分析？" class="headerlink" title="什么是复杂度分析？"></a>什么是复杂度分析？</h3><ol><li>数据结构和算法解决是“如何让计算机更快时间、更省空间的解决问题”。</li><li>因此需从执行时间和占用空间两个维度来评估数据结构和算法的性能。</li><li>分别用时间复杂度和空间复杂度两个概念来描述性能问题，二者统称为复杂度。</li><li>复杂度描述的是算法执行时间（或占用空间）与数据规模的增长关系。</li></ol><h3 id="为什么使用复杂度分析？"><a href="#为什么使用复杂度分析？" class="headerlink" title="为什么使用复杂度分析？"></a>为什么使用复杂度分析？</h3><ol><li>和性能测试相比，复杂度分析有不依赖执行环境、成本低、效率高、易操作、指导性强的特点。</li><li>掌握复杂度分析，将能编写出性能更优的代码，有利于降低系统开发和维护成本。</li></ol><h3 id="如何进行复杂度分析？"><a href="#如何进行复杂度分析？" class="headerlink" title="如何进行复杂度分析？"></a>如何进行复杂度分析？</h3><ol><li>大O表示法<br> 算法的执行时间与每行代码的执行次数成正比，用T(n) = O(f(n))表示，其中T(n)表示算法执行总时间，f(n)表示每行代码执行总次数，而n往往表示数据的规模。<br> 以时间复杂度为例，由于时间复杂度描述的是算法执行时间与数据规模的增长变化趋势，所以常量阶、低阶以及系数实际上对这种增长趋势不产决定性影响，所以在做时间复杂度分析时忽略这些项。<br> 空间复杂度分析比时间复杂度分析要简单很多，我们常见的空间复杂度就是 O(1)、O(n)、O(n2)，像 O(logn)、O(nlogn) 这样的对数阶复杂度平时都用不到。</li><li>复杂度分析法则<ul><li>单段代码看高频：比如循环。</li><li>多段代码取最大：比如一段代码中有单循环和多重循环，那么取多重循环的复杂度。</li><li>嵌套代码求乘积：比如递归、多重循环等</li><li>多个规模求加法：比如方法有两个参数控制两个循环的次数，那么这时就取二者复杂度相加。</li></ul></li></ol><h3 id="常用的复杂度级别"><a href="#常用的复杂度级别" class="headerlink" title="常用的复杂度级别"></a>常用的复杂度级别</h3><p><strong>多项式阶：</strong><br>随着数据规模的增长，算法的执行时间和空间占用，按照多项式的比例增长。包括，<br>O(1)（常数阶）、O(logn)（对数阶）、O(n)（线性阶）、O(nlogn)（线性对数阶）、O(n^2)（平方阶）、O(n^3)（立方阶）  </p><p><strong>非多项式阶：</strong><br>随着数据规模的增长，算法的执行时间和空间占用暴增，这类算法性能极差。包括，<br>O(2^n)（指数阶）、O(n!)（阶乘阶）</p><h3 id="复杂度分析的4个概念"><a href="#复杂度分析的4个概念" class="headerlink" title="复杂度分析的4个概念"></a>复杂度分析的4个概念</h3><ol><li>最坏情况时间复杂度：代码在最理想情况下执行的时间复杂度。</li><li>最好情况时间复杂度：代码在最坏情况下执行的时间复杂度。</li><li>平均时间复杂度：用代码在所有情况下执行的次数的加权平均值表示。</li><li>均摊时间复杂度：在代码执行的所有复杂度情况中绝大部分是低级别的复杂度，个别情况是高级别复杂度且发生具有时序关系时，可以将个别高级别复杂度均摊到低级别复杂度上。基本上均摊结果就等于低级别复杂度。</li></ol><h3 id="为什么要引入这4个概念？"><a href="#为什么要引入这4个概念？" class="headerlink" title="为什么要引入这4个概念？"></a>为什么要引入这4个概念？</h3><ol><li>同一段代码在不同情况下时间复杂度会出现量级差异，为了更全面，更准确的描述代码的时间复杂度，所以引入这4个概念。</li><li>代码复杂度在不同情况下出现量级差别时才需要区别这四种复杂度。大多数情况下，是不需要区别分析它们的。</li></ol><h3 id="如何分析平均、均摊时间复杂度？"><a href="#如何分析平均、均摊时间复杂度？" class="headerlink" title="如何分析平均、均摊时间复杂度？"></a>如何分析平均、均摊时间复杂度？</h3><ol><li>平均时间复杂度<br> 代码在不同情况下复杂度出现量级差别，则用代码所有可能情况下执行次数的加权平均值表示。</li><li>均摊时间复杂度<br> 两个条件满足时使用：  <ul><li>代码在绝大多数情况下是低级别复杂度，只有极少数情况是高级别复杂度；</li><li>低级别和高级别复杂度出现具有时序规律。均摊结果一般都等于低级别复杂度。</li></ul></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;复杂度分析分为时间复杂度分析和空间复杂度分析，时间复杂度的全称是渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系，空间复杂度全称就是渐进空间复杂度（asymptotic space complexity），表示算法的存储空间与数据规模之间的增长关系。&lt;/p&gt;
+&lt;h
+      
+    
+    </summary>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="算法" scheme="http://astrapub.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="复杂度分析" scheme="http://astrapub.github.io/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
   
   <entry>
     <title>算法入门——排序算法</title>
@@ -169,28 +306,6 @@
     <updated>2020-01-02T05:53:24.166Z</updated>
     
     <summary type="html">
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://astrapub.github.io/2019/12/28/hello-world/"/>
-    <id>http://astrapub.github.io/2019/12/28/hello-world/</id>
-    <published>2019-12-28T02:58:29.626Z</published>
-    <updated>2019-12-28T02:58:29.626Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
     
     </summary>
     
